@@ -1,0 +1,50 @@
+
+/* 
+*{
+    margin:0;
+    padding: 0;
+} */
+h1 {
+    text-align: center;
+}
+.button{
+    width: 50px;
+    height: 50px;
+    font-size: 25px;
+    margin: 2px;
+    cursor: pointer;
+    background: #888;
+    color: white;
+    border: none;
+}
+
+.button:hover{
+    background: #403939;
+}
+
+.button.active {
+    background: #403939;
+}
+
+.textview {
+    width: 217px;
+    margin: 5px;
+    font-size:25px;
+    padding: 5px;
+}
+
+.main{
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translateX(-50%)translateY(-50%);
+}
+
+.bg{
+    background: linear-gradient(to right,  #4b00ff61, #00e9ff8a);
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+    }

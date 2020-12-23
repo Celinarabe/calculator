@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Calculator</title>
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+    <div class="bg"></div>
+    <div class="main">
+        <h1>Calculator</h1>
+        <form name= 'form'>
+            <input class ="textview" name="textview" id="calcDisplay">
+        </form>
+        <table>
+            <tr>
+                <td><input onclick="clearValues()"  class ="button" type="button" value = "C"></td>
+                <td><input id = "/" onclick="setNumber(this);setActive(this)" class ="button" type="button" value = "/"></td>
+                <td><input id = "*" onclick="setNumber(this);setActive(this)" class ="button" type="button" value = "*"></td>
+                <td><input id = "-" onclick="setNumber(this);setActive(this)" class ="button" type="button" value = "-"></td>
+            </tr>
+            <tr>
+                <td><input onclick="addToView(value)" class ="button" type="button" value = "7"></td>
+                <td><input onclick="addToView(value)"class ="button" type="button" value = "8"></td>
+                <td><input onclick="addToView(value)"class ="button" type="button" value = "9"></td>
+                <td rowspan = 2><input id = "+" onclick="setNumber(this);setActive(this)"class ="button" style="height:110px" type="button" value = "+"></td>
+            </tr>
+            <tr>
+                <td><input onclick="addToView(value)" class ="button" type="button" value = "4"></td>
+                <td><input onclick="addToView(value)" class ="button" type="button" value = "5"></td>
+                <td><input onclick="addToView(value)" class ="button" type="button" value = "6"></td>
+                
+            </tr>
+            <tr>
+                <td><input onclick="addToView(value)" class ="button" type="button" value = "1"></td>
+                <td><input onclick="addToView(value)" class ="button" type="button" value = "2"></td>
+                <td><input onclick="addToView(value)" class ="button" type="button" value = "3"></td>
+                <td rowspan = 2><input onclick="showAnswer()" class ="button" style="height:110px" type="button" value = "="></td>
+            </tr>
+            <tr>
+                <td colspan=2><input class ="button" style="width:106px" type="button" value = "0"></td>
+                <td><input class ="button" type="button" value = "."></td>            
+            </tr>
+
+        </table>
+    </div>
+
+
+  
+
+
+
+
+
+<script>
+    let a = '';
+    let b = '';
+    let operator = '';
+
+    function addToView(value){
+        if (operator != ''){
+            let x = document.getElementById(operator)
+            if (x.classList.contains('active')){
+                setInactive(x);
+                clearView();
+            }       
+        }
+       
+        document.form.textview.value+= value;
+        console.log(value);
+    }
+
+    function clearView(){
+        document.form.textview.value = "";
+    }
+
+    function clearValues() {
+        document.form.textview.value = "";
+        a = '';
+        b = '';
+        let activeBtns = document.getElementsByClassName('active');
+        while (activeBtns.length) {
+            activeBtns[0].classList.remove('active');
+        }
+    }
+
+    function showAnswer() {
+        let result = operate()
+        addToView(result);
+
+    }
+
+    function setActive(el) {
+        el.classList.add('active');
+        operator = el.value;
+        console.log(operator);
+    }
+
+    function setInactive(el) {
+        el.classList.remove('active');
+    }
+
+    function setNumber(el) {
+        value = document.form.textview.value;
+        if (a == '') {
+            a = value;
+            console.log('a value'+a);
+        }
+        else if (b == ''){
+            b =  value;
+            console.log('b value'+b);
+            
+            console.log('operation:'+operator);
+            a = operate();
+            b = '';
+            operator = el.value;
+            console.log('a and b'+a)
+            clearView();
+            addToView(a);
+        }
+        // else if (a != '' && b != ''){
+        //     operator = el.value;
+        //     a = operate(operator, a, b);
+        //     b = '';
+        //     console.log('a and b'+a+b)
+
+        // }
+    }
+
+
+    function operate(){
+        let result;
+        a = parseInt(a);
+        b = parseInt(b);
+        if (operator == '+'){
+            return add(a,b);
+        }
+        else if (operator == '-'){
+            return subtract(a,b);
+        }
+        else if (operator == '*'){
+            return multiply(a,b);
+        }
+        else if (operator == '/'){
+            return divide(a,b);
+        }
+    }
+
+    function add(a, b) {
+        return a + b;
+    }
+    function subtract(a,b){
+        return a-b;
+    }
+    function multiply(a,b){
+        return a*b;
+    }
+    function divide(a,b){
+        return a/b;
+    }
+
+
+</script>
+
+</body>
+</html>
