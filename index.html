@@ -21,30 +21,30 @@
         <table>
             <tr>
                 <td><input onclick="clearValues()"  class ="button" type="button" value = "C"></td>
-                <td><input id = "/" onclick="setNumber(this);setActive(this)" class ="button" type="button" value = "/"></td>
-                <td><input id = "*" onclick="setNumber(this);setActive(this)" class ="button" type="button" value = "*"></td>
-                <td><input id = "-" onclick="setNumber(this);setActive(this)" class ="button" type="button" value = "-"></td>
+                <td><input id = "/" onclick="setNumberOperate(this);setActive(this)" class ="button" data-key ="111" type="button" value = "/"></td>
+                <td><input id = "*" onclick="setNumberOperate(this);setActive(this)" class ="button" data-key ="106"type="button" value = "*"></td>
+                <td><input id = "-" onclick="setNumberOperate(this);setActive(this)" class ="button" data-key ="109"type="button" value = "-"></td>
             </tr>
             <tr>
-                <td><input onclick="addToView(value)" class ="button" type="button" value = "7"></td>
-                <td><input onclick="addToView(value)"class ="button" type="button" value = "8"></td>
-                <td><input onclick="addToView(value)"class ="button" type="button" value = "9"></td>
-                <td rowspan = 2><input id = "+" onclick="setNumber(this);setActive(this)"class ="button" style="height:110px" type="button" value = "+"></td>
+                <td><input onclick="addToView(value)" class ="button" data-key ="55"type="button" value = "7"></td>
+                <td><input onclick="addToView(value)"class ="button" data-key ="56"type="button" value = "8"></td>
+                <td><input onclick="addToView(value)"class ="button" data-key ="57"type="button" value = "9"></td>
+                <td rowspan = 2><input id = "+" onclick="setNumberOperate(this);setActive(this)"class ="button" data-key ="107"style="height:110px" type="button" value = "+"></td>
             </tr>
             <tr>
-                <td><input onclick="addToView(value)" class ="button" type="button" value = "4"></td>
-                <td><input onclick="addToView(value)" class ="button" type="button" value = "5"></td>
-                <td><input onclick="addToView(value)" class ="button" type="button" value = "6"></td>
+                <td><input onclick="addToView(value)" class ="button" data-key ="52"type="button" value = "4"></td>
+                <td><input onclick="addToView(value)" class ="button" data-key ="53"type="button" value = "5"></td>
+                <td><input onclick="addToView(value)" class ="button" data-key ="54"type="button" value = "6"></td>
                 
             </tr>
             <tr>
-                <td><input onclick="addToView(value)" class ="button" type="button" value = "1"></td>
-                <td><input onclick="addToView(value)" class ="button" type="button" value = "2"></td>
-                <td><input onclick="addToView(value)" class ="button" type="button" value = "3"></td>
-                <td rowspan = 2><input onclick="showAnswer()" class ="button" style="height:110px" type="button" value = "="></td>
+                <td><input onclick="addToView(value)" class ="button" data-key ="49"type="button" value = "1"></td>
+                <td><input onclick="addToView(value)" class ="button" data-key ="50"type="button" value = "2"></td>
+                <td><input onclick="addToView(value)" class ="button" data-key ="51"type="button" value = "3"></td>
+                <td rowspan = 2><input onclick="showAnswer()" class ="button" data-key ="13" style="height:110px" type="button" value = "="></td>
             </tr>
             <tr>
-                <td colspan=2><input class ="button" style="width:106px" type="button" value = "0"></td>
+                <td colspan=2><input onclick="addToView(value)" class ="button" style="width:106px" data-key ="48"type="button" value = "0"></td>
                 <td><input class ="button" type="button" value = "."></td>            
             </tr>
 
@@ -63,6 +63,15 @@
     let b = '';
     let operator = '';
 
+    //add listener for user key data
+    window.addEventListener('keydown', getKeyInput);
+    function getKeyInput(e){
+        console.log(e.keyCode)
+        const key = document.querySelector(`.button[data-key="${e.keyCode}"]`);
+        console.log(key);
+        key.onclick();
+    }
+
     function addToView(value){
         if (operator != ''){
             let x = document.getElementById(operator)
@@ -71,6 +80,7 @@
                 clearView();
             }       
         }
+        // setNumber(value);
        
         document.form.textview.value+= value;
         console.log(value);
@@ -108,11 +118,27 @@
 
     function setNumber(el) {
         value = document.form.textview.value;
-        if (a == '') {
+        if (!a) {
             a = value;
             console.log('a value'+a);
         }
-        else if (b == ''){
+        else if (!b){
+            b =  value;
+            console.log('b value'+b);
+        }
+        else{
+            a = value;
+            console.log('a value'+a);
+        }
+    }
+
+    function setNumberOperate(el) {
+        value = document.form.textview.value;
+        if (!a) {
+            a = value;
+            console.log('a value'+a);
+        }
+        else if (!b){
             b =  value;
             console.log('b value'+b);
             
@@ -138,6 +164,8 @@
         let result;
         a = parseInt(a);
         b = parseInt(b);
+        console.log(operator);
+        console.log(a, b);
         if (operator == '+'){
             return add(a,b);
         }
