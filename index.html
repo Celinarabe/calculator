@@ -55,9 +55,6 @@
   
 
 
-
-
-
 <script>
     let a = '';
     let b = '';
@@ -95,7 +92,7 @@
         clearValues();
         console.log('cleared a: ', a)
         console.log('cleared b: ', b)
-        a = result;
+        //a = result;
         clearView();
         addToView(result);
 
@@ -121,6 +118,8 @@
     //set  variables and calculate
     function setNumberOperate(el) {
         console.log("IN HERE")
+        console.log('a value: ',a )
+        console.log('b value: ',b )
         value = document.form.textview.value;
         if (!a) {
             a = value;
