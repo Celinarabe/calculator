@@ -21,15 +21,15 @@
         <table>
             <tr>
                 <td><input onclick="clearValues()"  class ="button" type="button" value = "C"></td>
-                <td><input id = "/" onclick="setNumberOperate(this);setActive(this)" class ="button" data-key ="111" type="button" value = "/"></td>
-                <td><input id = "*" onclick="setNumberOperate(this);setActive(this)" class ="button" data-key ="106"type="button" value = "*"></td>
-                <td><input id = "-" onclick="setNumberOperate(this);setActive(this)" class ="button" data-key ="109"type="button" value = "-"></td>
+                <td><input id = "/" onclick="setNumberOperate();setActive(this)" class ="button" data-key ="111" type="button" value = "/"></td>
+                <td><input id = "*" onclick="setNumberOperate();setActive(this)" class ="button" data-key ="106"type="button" value = "*"></td>
+                <td><input id = "-" onclick="setNumberOperate();setActive(this)" class ="button" data-key ="109"type="button" value = "-"></td>
             </tr>
             <tr>
                 <td><input onclick="addToView(value)" class ="button" data-key ="55"type="button" value = "7"></td>
                 <td><input onclick="addToView(value)"class ="button" data-key ="56"type="button" value = "8"></td>
                 <td><input onclick="addToView(value)"class ="button" data-key ="57"type="button" value = "9"></td>
-                <td rowspan = 2><input id = "+" onclick="setNumberOperate(this);setActive(this)"class ="button" data-key ="107"style="height:110px" type="button" value = "+"></td>
+                <td rowspan = 2><input id = "+" onclick="setNumberOperate();setActive(this)"class ="button" data-key ="107"style="height:110px" type="button" value = "+"></td>
             </tr>
             <tr>
                 <td><input onclick="addToView(value)" class ="button" data-key ="52"type="button" value = "4"></td>
@@ -72,6 +72,7 @@
         key.onclick();
     }
 
+    //add input to view
     function addToView(value){
         if (operator != ''){
             let x = document.getElementById(operator)
@@ -80,43 +81,28 @@
                 clearView();
             }       
         }
-        // setNumber(value);
        
         document.form.textview.value+= value;
         console.log(value);
     }
 
-    function clearView(){
-        document.form.textview.value = "";
-    }
-
-    function clearValues() {
-        document.form.textview.value = "";
-        a = '';
-        b = '';
-        let activeBtns = document.getElementsByClassName('active');
-        while (activeBtns.length) {
-            activeBtns[0].classList.remove('active');
-        }
-    }
-
+    //show answer in view
     function showAnswer() {
+        setNumber();
+        console.log('a value: ',a )
+        console.log('b value: ',b )
         let result = operate()
+        clearValues();
+        console.log('cleared a: ', a)
+        console.log('cleared b: ', b)
+        a = result;
+        clearView();
         addToView(result);
 
     }
 
-    function setActive(el) {
-        el.classList.add('active');
-        operator = el.value;
-        console.log(operator);
-    }
-
-    function setInactive(el) {
-        el.classList.remove('active');
-    }
-
-    function setNumber(el) {
+    //set  variables
+    function setNumber() {
         value = document.form.textview.value;
         if (!a) {
             a = value;
@@ -132,7 +118,8 @@
         }
     }
 
-    function setNumberOperate(el) {
+    //set  variables and calculate
+    function setNumberOperate() {
         value = document.form.textview.value;
         if (!a) {
             a = value;
@@ -141,7 +128,7 @@
         else if (!b){
             b =  value;
             console.log('b value'+b);
-            
+        } else {           
             console.log('operation:'+operator);
             a = operate();
             b = '';
@@ -150,16 +137,10 @@
             clearView();
             addToView(a);
         }
-        // else if (a != '' && b != ''){
-        //     operator = el.value;
-        //     a = operate(operator, a, b);
-        //     b = '';
-        //     console.log('a and b'+a+b)
-
-        // }
+        
     }
 
-
+    //calculate only
     function operate(){
         let result;
         a = parseInt(a);
@@ -180,6 +161,8 @@
         }
     }
 
+
+    
     function add(a, b) {
         return a + b;
     }
@@ -193,6 +176,30 @@
         return a/b;
     }
 
+    function setActive(el) {
+        el.classList.add('active');
+        operator = el.value;
+        console.log(operator);
+    }
+
+    function setInactive(el) {
+        el.classList.remove('active');
+    }
+
+
+    function clearView(){
+        document.form.textview.value = "";
+    }
+
+    function clearValues() {
+        document.form.textview.value = "";
+        a = '';
+        b = '';
+        let activeBtns = document.getElementsByClassName('active');
+        while (activeBtns.length) {
+            activeBtns[0].classList.remove('active');
+        }
+    }
 
 </script>
 
